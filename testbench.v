@@ -13,7 +13,7 @@ module tb_evm();
     initial clk =1'b0;
     always 
         #5 clk = ~clk;
-    initial #500000 $finish;
+    initial #1000000 $finish;
 
     votingMachine vM1(
     .clk(clk),
@@ -48,9 +48,53 @@ module tb_evm();
         #100
         rst = 0;
         mode = 0;
+        cand1 = 1'b0;
+        cand2 = 1'b1;
+        cand3 = 1'b0;
+        cand4 = 1'b0;
+        #10100
+        $display("%b", result);
+        $display("Input : %b%b%b%b",cand1, cand2, cand3, cand4);
+
+        #100
+        rst = 0;
+        mode = 0;
+        cand1 = 1'b0;
+        cand2 = 1'b0;
+        cand3 = 1'b1;
+        cand4 = 1'b0;
+        #10100
+        $display("%b", result);
+        $display("Input : %b%b%b%b",cand1, cand2, cand3, cand4);
+
+        #100
+        rst = 0;
+        mode = 0;
+        cand1 = 1'b0;
+        cand2 = 1'b0;
+        cand3 = 1'b0;
+        cand4 = 1'b1;
+        #10100
+        $display("%b", result);
+        $display("Input : %b%b%b%b",cand1, cand2, cand3, cand4);
+
+        #100
+        rst = 0;
+        mode = 0;
         cand1 = 1'b1;
         cand2 = 1'b0;
         cand3 = 1'b0;
+        cand4 = 1'b0;
+        #10100
+        $display("%b", result);
+        $display("Input : %b%b%b%b",cand1, cand2, cand3, cand4);
+
+        #100
+        rst = 0;
+        mode = 0;
+        cand1 = 1'b0;
+        cand2 = 1'b0;
+        cand3 = 1'b1;
         cand4 = 1'b0;
         #10100
         $display("%b", result);
@@ -115,53 +159,9 @@ module tb_evm();
         rst = 0;
         mode = 0;
         cand1 = 1'b0;
-        cand2 = 1'b0;
-        cand3 = 1'b0;
-        cand4 = 1'b1;
-        #10100
-        $display("%b", result);
-        $display("Input : %b%b%b%b",cand1, cand2, cand3, cand4);
-
-        #100
-        rst = 0;
-        mode = 0;
-        cand1 = 1'b1;
-        cand2 = 1'b0;
-        cand3 = 1'b0;
-        cand4 = 1'b0;
-        #10100
-        $display("%b", result);
-        $display("Input : %b%b%b%b",cand1, cand2, cand3, cand4);
-
-        #100
-        rst = 0;
-        mode = 0;
-        cand1 = 1'b0;
         cand2 = 1'b1;
         cand3 = 1'b0;
         cand4 = 1'b0;
-        #10100
-        $display("%b", result);
-        $display("Input : %b%b%b%b",cand1, cand2, cand3, cand4);
-
-        #100
-        rst = 0;
-        mode = 0;
-        cand1 = 1'b0;
-        cand2 = 1'b0;
-        cand3 = 1'b1;
-        cand4 = 1'b0;
-        #10100
-        $display("%b", result);
-        $display("Input : %b%b%b%b",cand1, cand2, cand3, cand4);
-
-        #100
-        rst = 0;
-        mode = 0;
-        cand1 = 1'b0;
-        cand2 = 1'b0;
-        cand3 = 1'b0;
-        cand4 = 1'b1;
         #10100
         $display("%b", result);
         $display("Input : %b%b%b%b",cand1, cand2, cand3, cand4);
