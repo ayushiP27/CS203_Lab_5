@@ -1,3 +1,5 @@
+`timescale 1ns / 1ps
+
 //The main module which will tie all the submodules to perform the task at hand.
 module votingMachine(
 input clk,
@@ -22,7 +24,7 @@ wire [9:0] cand4Votes_wire;
 
 wire validVote;
 
-assign validVote = valVote1_wire| valVote2_wire| valVote3_wire| valVote4_wire;
+assign validVote = valVote1_wire|valVote2_wire|valVote3_wire|valVote4_wire;
 
 buttonDebouncer BD1(
 .clk(clk),
@@ -91,7 +93,7 @@ input rst,
 input button,
 output reg valVote
 );
-reg [30:0] counter;
+reg [9:0] counter;
 
 always @(posedge clk)
 begin
@@ -99,7 +101,7 @@ begin
         counter <= 0;
     else
     begin
-        if(button & counter < 100000001)
+        if(button & counter < 1001)
             counter <= counter + 1;
         else if(!button)
             counter <= 0;
@@ -113,7 +115,7 @@ begin
         valVote <= 1'b0;
     else
     begin
-        if(counter == 100000000)
+        if(counter == 1000)
             valVote <= 1'b1;
         else
             valVote <= 1'b0;
@@ -139,7 +141,7 @@ output reg [9:0] cand4Votes
 
 always @(posedge clk)
 begin
-    if(rst)
+    if(rst == 1)
     begin
         cand1Votes <= 0;
         cand2Votes <= 0;
@@ -148,13 +150,13 @@ begin
     end
     else
     begin
-        if(cand1Val & mode==0)
+        if(cand1Val & (mode==0))
             cand1Votes <= cand1Votes + 1;
-        else if(cand2Val & mode==0)
+        else if(cand2Val & (mode==0))
             cand2Votes <= cand2Votes + 1;
-        else if(cand3Val & mode==0)
+        else if(cand3Val & (mode==0))
             cand3Votes <= cand3Votes + 1;
-        else if(cand4Val & mode==0)
+        else if(cand4Val & (mode==0))
             cand4Votes <= cand4Votes + 1;
     end
 end
@@ -186,7 +188,7 @@ begin
         counter <= 0;  
     else if(valVote) 
         counter <= counter + 1;
-    else if(counter !=0 & counter < 100000000)
+    else if(counter !=0 & counter < 1000)
         counter <= counter + 1;
     else 
         counter <= 0;
@@ -194,14 +196,14 @@ end
 
 always @(posedge clk)
 begin
-    if(rst)
-        noOfVotes <= 0;
+  if(rst)
+        noOfVotes <= 10'd0;
     else
     begin
-        if(mode == 0 &  counter > 0 ) 
-            noOfVotes <= 10'b1111111111;
+        if(mode == 0 & counter > 0 ) 
+            noOfVotes <= 10'd1023;
         else if(mode == 0)
-            noOfVotes <= 10'b0000000000;
+            noOfVotes <= 10'd0;
         else if(mode == 1)
         begin
             if(candidate1)
